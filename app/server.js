@@ -1,14 +1,12 @@
 // server.js
 
 // BASE SETUP
-// =============================================================================
-
 // Load the packages we need
 var express    = require('express');        // call express
 var bodyParser = require('body-parser');
 var app        = express();                 // define our app using express
 var config     = require('./config');
-app.set('port',process.env.PORT || 8080);   // set our port
+app.set('port',process.env.PORT || config.port);   // set our port
 
 // Load the Mongoose connection
 var mongoose = require('mongoose');
@@ -40,7 +38,7 @@ app.get('/api', function(req, res) {
 
 // more routes for our API will happen here
 
-// REGISTER OUR ROUTES -------------------------------
+// REGISTER OUR ROUTES/Endpoints -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', lists);
 app.use('/api', users);

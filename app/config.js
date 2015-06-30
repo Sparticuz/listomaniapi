@@ -5,5 +5,6 @@ var priv  = require('./private.json');
 
 module.exports = {
 	version: pjson.version,
-	connectionString: priv.connectionString
+	connectionString: priv.connectionString,
+	port: 8080
 }
