@@ -1,16 +1,19 @@
 // lists.js
 // This is the Lists controller
 
-var Lists = require('../models/list');
+var List = require('../models/list');
 var express = require('express');
 var router = express.Router();
 
 router.route('/lists')
 	.get(function(req,res,next){
 		//Retrieves all lists
-		console.log('GET /lists');
-		res.send('{test:test}');
-		next();
+		List.find(function(err,lists){
+			if (err) return res.send(err);
+			console.log('GET /lists');
+			res.json(lists);
+		})
+		//next();
 	})
 	.post(function(req,res,next){
 		//Invalid, return error
