@@ -1,7 +1,7 @@
 // Users.js
 // This is the users controller
 
-var Users = require('../models/users');
+var Users = require('../models/user');
 var express = require('express');
 var router = express.Router();
 

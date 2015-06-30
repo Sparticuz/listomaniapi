@@ -1,7 +1,7 @@
 // lists.js
 // This is the Lists controller
 
-var Lists = require('../models/lists');
+var Lists = require('../models/list');
 var express = require('express');
 var router = express.Router();
 
