@@ -1,10 +1,10 @@
-//List's
-// This is the List Model
+// Users.js
+// This is the users Model
 
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-var listSchema = new Schema({
+var usersSchema = new Schema({
 	id: String,
 	owner: String,
 	avatar: String,
@@ -24,4 +24,4 @@ var listSchema = new Schema({
 	date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('List',listSchema);
+module.exports = mongoose.model('Users',usersSchema);

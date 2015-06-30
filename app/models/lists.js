@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-var userSchema = new Schema({
+var listsSchema = new Schema({
 	id: String,
 	owner: String,
 	avatar: String,
@@ -24,4 +24,4 @@ var userSchema = new Schema({
 	date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('User',userSchema);
+module.exports = mongoose.model('Lists',listsSchema);

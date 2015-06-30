@@ -15,8 +15,8 @@ var mongoose = require('mongoose');
 mongoose.connect(config.connectionString);
 
 // Load the Controllers
-var list = require('../app/controllers/list');
-var user = require('../app/controllers/user');
+var lists = require('../app/controllers/lists');
+var users = require('../app/controllers/users');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -42,8 +42,8 @@ app.get('/api', function(req, res) {
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', list);
-app.use('/api', user);
+app.use('/api', lists);
+app.use('/api', users);
 
 // START THE SERVER
 // =============================================================================
