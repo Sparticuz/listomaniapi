@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var listSchema = new Schema({
-	id: String,
 	owner: String,
 	avatar: String,
 	title: String,
@@ -14,7 +13,7 @@ var listSchema = new Schema({
 		subTitle: String,
 		comment: String,
 		order: Number,
-		data: [{
+		attributes: [{
 			link: String,
 			type: String
 			/* Types: image, primaryColor, secondaryColor, rdio, spotify */
