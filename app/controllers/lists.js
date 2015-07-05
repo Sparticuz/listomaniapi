@@ -19,7 +19,8 @@ router.route('/lists')
 		//Add's new list
 		console.log(req.body);
 		var list = new List();
-		list = req.body;
+		list.owner = req.body.owner;
+		list.title = req.body.title;
 		list.save(function(err){
 			if (err) return res.send(err);
 			console.log('PUT /lists');
