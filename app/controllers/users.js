@@ -1,54 +1,57 @@
 // Users.js
 // This is the users controller
 
-var Users = require('../models/user');
+var User = require('../models/user');
 var express = require('express');
+var bcrypt = require('bcrypt-nodejs');
 var router = express.Router();
 
 router.route('/users')
-	.get(function(req,res,next){
+	.get(function(req,res){
 		//Retrieves all users
-		console.log('GET /users');
-		res.send('{test:test}');
-		next();
+		User.find(function(err,users){
+			if (err) return res.send(err);
+			res.json(users);
+		});
 	})
-	.post(function(req,res,next){
-		//Invalid, return error
-		console.log('POST /users');
-		next();
-	})
-	.put(function(req,res,next){
+	.post(function(req,res){res.status(405).send('Please select a user before updating one');})
+	.put(function(req,res){
 		//Add's new user
-		console.log('PUT /users');
-		next();
+		console.log(req.body);
+		var user = new User();
+		user.user = req.body.user;
+		user.twitter = req.body.user;
+		user.avatar = req.body.avatar;
+		user.save(function(err){
+			if (err) return res.send(err);
+			console.log('PUT /users');
+			res.status(201).send();
+		});
 	})
-	.delete(function(req,res,next){
-		//Invalid, return error
-		console.log('DELETE /users');
-		next();
+	.delete(function(req,res){res.status(405).send('Cannot DELETE All users. Please select a user.');
 	});
 
 router.route('/users/:id')
-	.get(function(req,res,next){
+	.get(function(req,res){
 		//Retrieves single user
-		console.log('GET /users');
-		res.send('{test:test}');
-		next();
+		User.findById(req.params.id,function(err,user){
+			if (err) return res.send(err);
+			console.log('GET /users');
+			res.json(user);
+		})
 	})
-	.post(function(req,res,next){
-		//Updates a single user
+	.post(function(req,res){
+		//TODO: Updates a single user
 		console.log('POST /users');
-		next();
 	})
-	.put(function(req,res,next){
-		//Invalid, return error
-		console.log('PUT /users');
-		next();
-	})
-	.delete(function(req,res,next){
+	.put(function(req,res){res.status(405).send('Cannot PUT a new user onto an existing user, Please use PUT /users');})
+	.delete(function(req,res){
 		//Deletes single user
-		console.log('DELETE /users');
-		next();
+		User.findByIdAndRemove(req.body.id,function(err){
+			if (err) return res.send(err);
+			console.log('DELETE /lists');
+			res.status(201).send();
+		});
 	});
 
 module.exports = router;
