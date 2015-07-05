@@ -2,11 +2,9 @@
 // This is the List Model
 
 var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
 
-var listSchema = new Schema({
+var listSchema = new mongoose.Schema({
 	owner: String,
-	avatar: String,
 	title: String,
 	items: [{
 		title: String,
