@@ -2,26 +2,13 @@
 // This is the users Model
 
 var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
 
-var usersSchema = new Schema({
-	id: String,
-	owner: String,
+var usersSchema = new mongoose.Schema({
+	user: {type: String, unique: true, required: true},
+	twitter_handle: {type: String, unique: true, required: true},
+	twitter_id: {type: Number, unique: true, required: true},
 	avatar: String,
-	title: String,
-	items: [{
-		title: String,
-		subTitle: String,
-		comment: String,
-		order: Number,
-		data: [{
-			link: String,
-			type: String
-			/* Types: image, primaryColor, secondaryColor, rdio, spotify */
-		}]
-	}],
-	shortUrl: String,
-	date: { type: Date, default: Date.now }
+	created: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Users',usersSchema);
