@@ -5,7 +5,8 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./app/server.js",
+    "lint": "jshint ./app/**/*.js || true"
   },
   "author": "Kyle McNally",
   "license": "ISC",
@@ -16,6 +17,6 @@
     "passport-twitter": "^1.0.3"
   },
   "devDependencies": {
-    "gulp": "^3.9.0"
+      "jshint": "^2.8.0"
   }
 }
