@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var usersSchema = new mongoose.Schema({
 	user: {type: String, unique: true, required: true},
-	twitter          : {
+	google: {
     	id           : String,
         token        : String,
         displayName  : String,

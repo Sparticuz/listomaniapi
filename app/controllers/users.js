@@ -3,7 +3,6 @@
 
 var User = require('../models/user');
 var express = require('express');
-var bcrypt = require('bcrypt-nodejs');
 var router = express.Router();
 
 router.route('/users')
@@ -38,7 +37,7 @@ router.route('/users/:id')
 			if (err) return res.send(err);
 			console.log('GET /users');
 			res.json(user);
-		})
+		});
 	})
 	.post(function(req,res){
 		//TODO: Updates a single user

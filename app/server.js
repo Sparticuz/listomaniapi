@@ -7,12 +7,14 @@ var bodyParser = require('body-parser');
 var app        = express();                 // define our app using express
 var config     = require('./config');
 app.set('port',process.env.PORT || config.port);   // set our port
+var passport = require('passport');
 
 // Load the Mongoose connection
 var mongoose = require('mongoose');
 mongoose.connect(config.connectionString);
 
 // Load the Controllers
+var authenticate = require('../app/controllers/authenticate');
 var lists = require('../app/controllers/lists');
 var users = require('../app/controllers/users');
 
@@ -20,11 +22,17 @@ var users = require('../app/controllers/users');
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
 
 // middleware to use for all requests
 app.use(function(req, res, next) {
-    // do logging
-    console.log('Something is happening.');
+    // Logging
+    console.log(req.method + " " + req.url);
+
+    // Allow CORS
+    res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -36,10 +44,9 @@ app.get('/api', function(req, res) {
     });
 });
 
-// more routes for our API will happen here
-
 // REGISTER OUR ROUTES/Endpoints -------------------------------
 // all of our routes will be prefixed with /api
+app.use('/api', authenticate);
 app.use('/api', lists);
 app.use('/api', users);
 

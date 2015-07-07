@@ -37,7 +37,7 @@ router.route('/lists/:id')
 			if (err) return res.send(err);
 			console.log('GET /lists');
 			res.json(list);
-		})
+		});
 	})
 	.post(function(req,res){
 		//TODO: Updates a single list
