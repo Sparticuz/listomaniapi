@@ -9,5 +9,6 @@ module.exports = {
 	google: priv.google,
 	twitter: priv.twitter,
 	facebook: priv.facebook,
+	secret: priv.secret,
 	port: 8080
 };

@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var config = require('../config');
 var User = require('../models/user');
+var jwt = require('jsonwebtoken');
 
 var passport = require('passport');
 
@@ -24,7 +25,7 @@ passport.use(new GoogleStrategy({
   		//No user found!, create one!
   		if (!user) {
   			user = new User({
-  				user: profile.username || profile.displayName,
+  				user: profile.username || profile.displayName.replace(/\s+/g,''),
 				google: {
     				id : profile.id,
         			token : accessToken,
@@ -44,7 +45,7 @@ passport.use(new GoogleStrategy({
     });
   }));
 
-var FacebookStrategy = require('passport-facebook').Strategy;
+/*var FacebookStrategy = require('passport-facebook').Strategy;
 passport.use(new FacebookStrategy({
     clientID: config.facebook.appID,
     clientSecret: config.facebook.appSecret,
@@ -78,7 +79,7 @@ passport.use(new FacebookStrategy({
   		}
     });
   }
-));
+));*/
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -101,8 +102,16 @@ router.route('/authenticate/google/callback')
 	.get(passport.authenticate('google', {
 		failureRedirect:'/login'
 	}), function(req,res){
-		console.log(req);
-		res.status(200).json({token: req.user.google.token});
+		res.status(200).json({
+			success: true,
+			token: jwt.sign({
+				_id: req.user._id,
+				user: req.user.user,
+				admin: req.user.admin
+			},config.secret,{
+				expiresInMinutes: 1440
+			})
+		});
 	});
 
 /*router.route('/authenticate/facebook')

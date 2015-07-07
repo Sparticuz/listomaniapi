@@ -46,10 +46,9 @@ router.route('/users/:id')
 	.put(function(req,res){res.status(405).send('Cannot PUT a new user onto an existing user, Please use PUT /users');})
 	.delete(function(req,res){
 		//Deletes single user
-		User.findByIdAndRemove(req.body.id,function(err){
+		User.findByIdAndRemove(req.params.id,function(err){
 			if (err) return res.send(err);
-			console.log('DELETE /lists');
-			res.status(201).send();
+			res.status(204).send();
 		});
 	});
 

@@ -8,15 +8,12 @@ var app        = express();                 // define our app using express
 var config     = require('./config');
 app.set('port',process.env.PORT || config.port);   // set our port
 var passport = require('passport');
+var jwt = require('jsonwebtoken');
+var morgan = require('morgan');
 
 // Load the Mongoose connection
 var mongoose = require('mongoose');
 mongoose.connect(config.connectionString);
-
-// Load the Controllers
-var authenticate = require('../app/controllers/authenticate');
-var lists = require('../app/controllers/lists');
-var users = require('../app/controllers/users');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -25,10 +22,8 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 // middleware to use for all requests
+app.use(morgan('dev'));
 app.use(function(req, res, next) {
-    // Logging
-    console.log(req.method + " " + req.url);
-
     // Allow CORS
     res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -45,8 +40,39 @@ app.get('/api', function(req, res) {
 });
 
 // REGISTER OUR ROUTES/Endpoints -------------------------------
+// Load the Controllers
+var authenticate = require('../app/controllers/authenticate');
+var publicLists = require('../app/controllers/publicLists');
+var lists = require('../app/controllers/lists');
+var users = require('../app/controllers/users');
 // all of our routes will be prefixed with /api
 app.use('/api', authenticate);
+app.use('/api', publicLists);
+//Auth verify
+app.use('/api', function(req,res,next){
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    if (token) {
+        jwt.verify(token,config.secret,function(err,decoded){
+            if (err) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Failed to authenticate token."
+                });
+            } else {
+                //Token Authenticated!
+                req.decoded = decoded;
+                //return res.send(decoded);
+                next();
+            }
+        });
+    } else {
+        return res.status(401).json({
+            success: false,
+            message: "No token provided."
+        })
+    }
+});
+//Authenticated routes
 app.use('/api', lists);
 app.use('/api', users);
 

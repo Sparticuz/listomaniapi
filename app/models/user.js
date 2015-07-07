@@ -12,6 +12,7 @@ var usersSchema = new mongoose.Schema({
         username     : String
     },
     avatar: String,
+    admin: { type: Boolean, default: false },
 	created: { type: Date, default: Date.now }
 });
 
