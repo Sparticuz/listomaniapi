@@ -102,7 +102,14 @@ router.route('/authenticate/google/callback')
 	.get(passport.authenticate('google', {
 		failureRedirect:'/login'
 	}), function(req,res){
-		res.status(200).json({
+		res.redirect('http://127.0.0.1:9000/login/'+jwt.sign({
+				_id: req.user._id,
+				user: req.user.user,
+				admin: req.user.admin
+			},config.secret,{
+				expiresInMinutes: 1440
+			}));
+		/*res.status(200).json({
 			success: true,
 			token: jwt.sign({
 				_id: req.user._id,
@@ -111,7 +118,7 @@ router.route('/authenticate/google/callback')
 			},config.secret,{
 				expiresInMinutes: 1440
 			})
-		});
+		});*/
 	});
 
 /*router.route('/authenticate/facebook')
