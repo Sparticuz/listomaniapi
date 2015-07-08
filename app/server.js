@@ -26,7 +26,8 @@ app.use(morgan('dev'));
 app.use(function(req, res, next) {
     // Allow CORS
     res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,HEAD,DELETE,OPTIONS');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, X-Access-Token");
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -44,6 +45,7 @@ var authenticate = require('../app/controllers/authenticate');
 var publicLists = require('../app/controllers/publicLists');
 var lists = require('../app/controllers/lists');
 var users = require('../app/controllers/users');
+var me = require('../app/controllers/me');
 // all of our routes will be prefixed with /api
 app.use('/api', authenticate);
 app.use('/api', publicLists);
@@ -74,6 +76,7 @@ app.use('/api', function(req,res,next){
 //Authenticated routes
 app.use('/api', lists);
 app.use('/api', users);
+app.use('/api', me);
 
 // START THE SERVER
 // =============================================================================

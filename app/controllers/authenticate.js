@@ -102,7 +102,7 @@ router.route('/authenticate/google/callback')
 	.get(passport.authenticate('google', {
 		failureRedirect:'/login'
 	}), function(req,res){
-		res.redirect('http://127.0.0.1:9000/login/'+jwt.sign({
+		res.redirect('http://127.0.0.1:9000/#login/'+jwt.sign({
 				_id: req.user._id,
 				user: req.user.user,
 				admin: req.user.admin
