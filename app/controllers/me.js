@@ -10,7 +10,6 @@ router.route('/me')
 		//Retrieves current user
 		User.findById(req.decoded._id,function(err,user){
 				if (err) return res.send(err);
-				console.log('GET /me');
 				res.json(user);
 		});
 	})
