@@ -26,9 +26,13 @@ app.use(morgan('dev'));
 app.use(function(req, res, next) {
     // Allow CORS
     res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,HEAD,DELETE,OPTIONS');
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, X-Access-Token");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+	  res.header("Access-Control-Allow-Headers", "X-Access-Token");
     next(); // make sure we go to the next routes and don't stop here
+});
+app.options('*', function(req, res){
+  //Respond to all OPTIONS queries with a 200, this is for CORS
+  res.sendStatus(200);
 });
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
@@ -47,6 +51,7 @@ var lists = require('../app/controllers/lists');
 var users = require('../app/controllers/users');
 var me = require('../app/controllers/me');
 // all of our routes will be prefixed with /api
+// The following are public routes
 app.use('/api', authenticate);
 app.use('/api', publicLists);
 //Auth verify
