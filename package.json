@@ -5,8 +5,9 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./app/server.js",
-    "lint": "jshint ./app/**/*.js || true"
+    "start": "node ./app/server.js",
+    "lint": "jshint ./app/**/*.js || true",
+    "watch": "nodemon ./app/server.js"
   },
   "author": "Kyle McNally",
   "license": "ISC",
