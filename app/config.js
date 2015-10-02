@@ -9,5 +9,6 @@ module.exports = {
 		client_id: process.env.google_client_id,
 		client_secret: process.env.google_client_secret
 	},
+	jwt_secret: process.env.jwt_secret,
 	port: 8080
 };
