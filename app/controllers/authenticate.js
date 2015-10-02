@@ -14,7 +14,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
     clientID: config.google.client_id,
     clientSecret: config.google.client_secret,
-    callbackURL: "http://listomaniapi.herokuapp.com/api/authenticate/google/callback"
+    callbackURL: "https://listomaniapi.herokuapp.com/api/authenticate/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
   	//Check the user table for this user
