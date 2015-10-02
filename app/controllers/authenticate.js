@@ -12,9 +12,9 @@ var passport = require('passport');
 //Google Strategy
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
-    clientID: config.google.web.client_id,
-    clientSecret: config.google.web.client_secret,
-    callbackURL: config.google.web.redirect_uris[0]
+    clientID: config.google.client_id,
+    clientSecret: config.google.client_secret,
+    callbackURL: "http://listomaniapi.herokuapp.com/api/authenticate/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
   	//Check the user table for this user

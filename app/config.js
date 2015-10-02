@@ -1,14 +1,13 @@
 // config.js
 
 var pjson = require('../package.json');
-var priv  = require('./private.json');
 
 module.exports = {
 	version: pjson.version,
-	connectionString: priv.connectionString,
-	google: priv.google,
-	twitter: priv.twitter,
-	facebook: priv.facebook,
-	secret: priv.secret,
+	connectionString: process.env.connectionString,
+	google: {
+		client_id: process.env.google_client_id,
+		client_secret: process.env.google_client_secret
+	},
 	port: 8080
 };
