@@ -59,7 +59,7 @@ router.route('/authenticate/google')
 		scope: ['profile','email']
 	}),function(req,res){
 		// The request will be redirected to Google for authentication, so this
-    	// function will not be called.
+    // function will not be called.
 	});
 
 router.route('/authenticate/google/callback')
