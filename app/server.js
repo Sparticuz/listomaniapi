@@ -22,7 +22,9 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 // middleware to use for all requests
-app.use(morgan('dev'));
+if(process.env.NODE_ENV != 'production') {
+    app.use(morgan('dev'));
+}
 app.use(function(req, res, next) {
     // Allow CORS
     res.header("Access-Control-Allow-Origin", "*");
@@ -31,8 +33,8 @@ app.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 app.options('*', function(req, res){
-  //Respond to all OPTIONS queries with a 200, this is for CORS
-  res.sendStatus(200);
+    //Respond to all OPTIONS queries with a 200, this is for CORS
+    res.sendStatus(200);
 });
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
