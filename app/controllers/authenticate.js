@@ -71,7 +71,7 @@ router.route('/authenticate/google/callback')
 				user: req.user.user,
 				admin: req.user.admin
 			},config.jwt_secret,{
-				expiresInMinutes: 1440
+				expiresIn: 86400
 			}));
 	});
 
