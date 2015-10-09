@@ -70,7 +70,7 @@ router.route('/authenticate/google/callback')
 				_id: req.user._id,
 				user: req.user.user,
 				admin: req.user.admin
-			},config.secret,{
+			},config.jwt_secret,{
 				expiresInMinutes: 1440
 			}));
 	});
